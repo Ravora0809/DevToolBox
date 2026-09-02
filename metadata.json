@@ -1,0 +1,7 @@
+{
+  "name": "DevToolBox",
+  "description": "Free, fast, and privacy-focused online developer tools platform. Format JSON, test Regex, encode Base64, generate UUIDs & passwords, convert timestamps, and more in your browser.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
