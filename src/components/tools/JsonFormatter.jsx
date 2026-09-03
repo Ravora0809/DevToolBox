@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Check, Trash2, Download, Upload, RefreshCw, FileCode, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Copy, Check, Trash2, Download, Upload, RefreshCw, FileCode, CheckCircle2, AlertCircle, Sparkles } from 'lucide-react';
 
 export default function JsonFormatter() {
   const [input, setInput] = useState(`{
@@ -117,9 +117,35 @@ export default function JsonFormatter() {
             Minify (1 Line)
           </button>
 
+          <button
+            onClick={() => {
+              setInput(`{
+  "name": "DevToolBox",
+  "version": "2.0.0",
+  "features": [
+    "JSON Formatter",
+    "Regex Tester",
+    "Base64 Converter",
+    "Password Generator"
+  ],
+  "author": {
+    "organization": "DevToolBox Team",
+    "verified": true,
+    "stars": 4200
+  }
+}`);
+              setError(null);
+            }}
+            className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-medium rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Example
+          </button>
+
           <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-800 px-2 py-1 rounded-lg text-xs">
-            <span className="text-slate-400">Spacing:</span>
+            <label htmlFor="json-spacing-select" className="text-slate-400">Spacing:</label>
             <select
+              id="json-spacing-select"
               value={indent}
               onChange={(e) => {
                 const val = e.target.value;

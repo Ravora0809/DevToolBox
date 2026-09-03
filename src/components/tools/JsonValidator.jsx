@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
-import { CheckCircle2, AlertTriangle, XCircle, Copy, Check, Wrench } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, XCircle, Copy, Check, Wrench, Trash2, Sparkles, AlertCircle } from 'lucide-react';
+
+const VALID_EXAMPLE = `{
+  "projectName": "DevToolBox",
+  "version": "2.0.0",
+  "clientSide": true,
+  "config": {
+    "theme": "dark",
+    "supportedFormats": ["JSON", "HTML", "Base64", "Regex"]
+  }
+}`;
+
+const INVALID_EXAMPLE = `{
+  // Invalid comment in standard JSON
+  'singleQuotes': 'disallowed in RFC 8259',
+  "trailingComma": true,
+}`;
 
 export default function JsonValidator() {
-  const [input, setInput] = useState(`{
-  "project": "DevToolBox",
-  "valid": true,
-  "metrics": {
-    "speed": "instant",
-    "privacy": 100
-  }
-}`);
+  const [input, setInput] = useState(VALID_EXAMPLE);
   const [validationResult, setValidationResult] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [fixNotification, setFixNotification] = useState(null);
 
   const validateJson = () => {
+    setFixNotification(null);
     if (!input.trim()) {
       setValidationResult(null);
       return;
@@ -22,8 +33,8 @@ export default function JsonValidator() {
       const parsed = JSON.parse(input);
       setValidationResult({
         valid: true,
-        message: 'JSON is strictly valid RFC 8259 format!',
-        type: typeof parsed,
+        message: 'JSON is strictly valid RFC 8259 format.',
+        type: Array.isArray(parsed) ? 'Array' : typeof parsed,
         itemCount: Array.isArray(parsed) ? parsed.length : Object.keys(parsed).length
       });
     } catch (err) {
@@ -49,30 +60,56 @@ export default function JsonValidator() {
   };
 
   const attemptFix = () => {
+    setFixNotification(null);
     try {
+      // Remove JS line comments and block comments
+      let fixed = input.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '');
       // Replace single quotes with double quotes
-      let fixed = input.replace(/'/g, '"');
+      fixed = fixed.replace(/'/g, '"');
       // Remove trailing commas before closing braces/brackets
       fixed = fixed.replace(/,(\s*[}\]])/g, '$1');
+      
       JSON.parse(fixed);
       setInput(fixed);
-      validateJson();
+      setValidationResult({
+        valid: true,
+        message: 'Successfully repaired single-quotes and trailing commas!',
+        type: 'Object',
+        itemCount: 1
+      });
+      setFixNotification({ success: true, text: 'Syntax auto-repaired successfully.' });
     } catch (err) {
-      alert("Could not automatically repair all syntax errors. Please inspect the line indicated.");
+      setFixNotification({
+        success: false,
+        text: `Unable to fully auto-repair: ${err.message}. Please inspect the line indicated.`
+      });
     }
+  };
+
+  const handleReset = () => {
+    setInput('');
+    setValidationResult(null);
+    setFixNotification(null);
+  };
+
+  const handleCopy = () => {
+    if (!input) return;
+    navigator.clipboard.writeText(input);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <div className="space-y-4">
       {/* Action Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-900/90 border border-slate-800 rounded-xl">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={validateJson}
-            className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors shadow-sm"
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
-            Validate JSON Syntax
+            Validate Syntax
           </button>
           
           <button
@@ -80,22 +117,57 @@ export default function JsonValidator() {
             className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-medium rounded-lg flex items-center gap-1.5 border border-slate-700 transition-colors"
           >
             <Wrench className="w-3.5 h-3.5" />
-            Quick Fix Common Errors
+            Auto-Fix Commas/Quotes
+          </button>
+
+          <button
+            onClick={() => { setInput(VALID_EXAMPLE); setValidationResult(null); setFixNotification(null); }}
+            className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            Valid Sample
+          </button>
+
+          <button
+            onClick={() => { setInput(INVALID_EXAMPLE); setValidationResult(null); setFixNotification(null); }}
+            className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
+          >
+            <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+            Broken Sample
           </button>
         </div>
 
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText(input);
-            setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
-          }}
-          className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
-        >
-          {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-          <span>{copied ? 'Copied' : 'Copy'}</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={handleCopy}
+            disabled={!input}
+            className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 text-xs font-medium rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
+          >
+            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            <span>{copied ? 'Copied' : 'Copy'}</span>
+          </button>
+
+          <button
+            onClick={handleReset}
+            className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800 transition-colors"
+            title="Reset and clear editor"
+            aria-label="Clear JSON"
+          >
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
       </div>
+
+      {fixNotification && (
+        <div className={`p-3 rounded-xl border flex items-center gap-2 text-xs ${
+          fixNotification.success
+            ? 'bg-emerald-950/40 border-emerald-500/30 text-emerald-300'
+            : 'bg-amber-950/40 border-amber-500/30 text-amber-300'
+        }`}>
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          <span>{fixNotification.text}</span>
+        </div>
+      )}
 
       {/* Validation Status Indicator */}
       {validationResult && (
@@ -124,15 +196,16 @@ export default function JsonValidator() {
       )}
 
       {/* Code Editor */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden focus-within:border-indigo-500/50 transition-colors">
         <div className="px-3.5 py-2 bg-slate-950/80 border-b border-slate-800 text-xs text-slate-400 flex justify-between">
-          <span>JSON Source Text</span>
-          <span>{input.split('\n').length} lines</span>
+          <label htmlFor="json-validator-input" className="cursor-pointer">JSON Source Text</label>
+          <span className="font-mono text-[11px]">{input.split('\n').length} lines • {input.length} chars</span>
         </div>
         <textarea
+          id="json-validator-input"
           value={input}
-          onChange={(e) => { setInput(e.target.value); setValidationResult(null); }}
-          placeholder="Paste JSON string to validate..."
+          onChange={(e) => { setInput(e.target.value); setValidationResult(null); setFixNotification(null); }}
+          placeholder="Paste JSON string here to validate against RFC 8259 syntax..."
           className="w-full h-80 p-4 bg-transparent font-mono text-xs text-slate-100 placeholder-slate-600 resize-none focus:outline-none leading-relaxed"
           spellCheck={false}
         />

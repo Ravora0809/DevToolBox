@@ -51,7 +51,7 @@ export default function Navbar({
                   v2.0
                 </span>
               </span>
-              <span className="text-[10px] text-slate-400 font-mono -mt-1 hidden sm:inline">100% Client-Side Engine</span>
+              <span className="text-[10px] text-slate-400 font-mono -mt-1 hidden sm:inline">Developer Utilities Suite</span>
             </div>
           </div>
 

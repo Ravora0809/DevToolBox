@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
-import { Copy, Check, Trash2, FileText, Clock, Type } from 'lucide-react';
+import { Copy, Check, Trash2, Sparkles, FileText, Clock, Type } from 'lucide-react';
+
+const SAMPLE_TEXT = `DevToolBox provides practical developer utilities designed for software engineers, systems architects, and technical writers.
+
+All word calculations, text transformations, character counts, and reading estimations are computed directly inside your browser's local memory.`;
 
 export default function WordCounter() {
-  const [text, setText] = useState(`DevToolBox is a fast, offline-first suite of developer utilities designed to make daily engineering workflows seamless and private.
-
-No telemetry, no tracking, and no cloud uploads — everything is calculated directly on your device.`);
+  const [text, setText] = useState(SAMPLE_TEXT);
   const [copied, setCopied] = useState(false);
 
   const stats = useMemo(() => {
@@ -72,8 +74,15 @@ No telemetry, no tracking, and no cloud uploads — everything is calculated dir
     if (type === 'upper') setText(text.toUpperCase());
     if (type === 'lower') setText(text.toLowerCase());
     if (type === 'title') {
-      setText(text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()));
+      setText(text.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase()));
     }
+  };
+
+  const handleCopy = () => {
+    if (!text) return;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -88,7 +97,7 @@ No telemetry, no tracking, and no cloud uploads — everything is calculated dir
         <div className="p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl">
           <span className="text-[11px] text-slate-400 block uppercase font-mono">Characters</span>
           <span className="text-2xl font-mono font-bold text-slate-100">{stats.charsWithSpaces}</span>
-          <span className="text-[10px] text-slate-500 block">({stats.charsWithoutSpaces} no spaces)</span>
+          <span className="text-[10px] text-slate-500 block">({stats.charsWithoutSpaces} without spaces)</span>
         </div>
 
         <div className="p-3.5 bg-slate-900/90 border border-slate-800 rounded-xl">
@@ -107,44 +116,72 @@ No telemetry, no tracking, and no cloud uploads — everything is calculated dir
       {/* Case Transformer Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-900/90 border border-slate-800 rounded-xl text-xs">
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="text-slate-400 mr-1">Transforms:</span>
-          <button onClick={() => transformCase('upper')} className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-mono">
+          <span className="text-slate-400 mr-1 font-medium">Text Transforms:</span>
+          <button
+            type="button"
+            onClick={() => transformCase('upper')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-mono border border-slate-700 transition-colors"
+          >
             UPPERCASE
           </button>
-          <button onClick={() => transformCase('lower')} className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-mono">
+          <button
+            type="button"
+            onClick={() => transformCase('lower')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-mono border border-slate-700 transition-colors"
+          >
             lowercase
           </button>
-          <button onClick={() => transformCase('title')} className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-mono">
+          <button
+            type="button"
+            onClick={() => transformCase('title')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-mono border border-slate-700 transition-colors"
+          >
             Title Case
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setText(SAMPLE_TEXT)}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-lg flex items-center gap-1 border border-slate-700 transition-colors ml-1"
+          >
+            <Sparkles className="w-3 h-3 text-amber-400" />
+            Sample
           </button>
         </div>
 
         <div className="flex items-center gap-2">
           <button
-            onClick={() => {
-              navigator.clipboard.writeText(text);
-              setCopied(true);
-              setTimeout(() => setCopied(false), 2000);
-            }}
-            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded flex items-center gap-1"
+            type="button"
+            onClick={handleCopy}
+            disabled={!text}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-slate-200 rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'Copied' : 'Copy'}</span>
           </button>
 
-          <button onClick={() => setText('')} className="p-1 text-slate-400 hover:text-red-400 rounded hover:bg-slate-800">
+          <button
+            type="button"
+            onClick={() => setText('')}
+            className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800 border border-slate-800 transition-colors"
+            title="Clear text"
+            aria-label="Clear text input"
+          >
             <Trash2 className="w-4 h-4" />
           </button>
         </div>
       </div>
 
       {/* Text Area */}
-      <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden focus-within:border-indigo-500/50 transition-colors">
+        <label htmlFor="word-counter-textarea" className="sr-only">Input text for analysis</label>
         <textarea
+          id="word-counter-textarea"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Paste or type content here for live word, character, and readability analysis..."
           className="w-full h-72 p-4 bg-transparent text-sm text-slate-100 placeholder-slate-600 resize-none focus:outline-none leading-relaxed"
+          spellCheck={true}
         />
       </div>
 

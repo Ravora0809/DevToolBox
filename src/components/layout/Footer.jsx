@@ -19,11 +19,11 @@ export default function Footer({ onNavigate }) {
               <span className="font-bold text-slate-100 text-sm">DevToolBox</span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Fast, privacy-first developer utility suite. Zero telemetry, zero server-side storage — every single byte is processed strictly inside your browser sandbox.
+              Fast, focused developer utilities for formatting, regex evaluation, encoding, and data transformation. Processed locally in your browser.
             </p>
-            <div className="flex items-center gap-2 text-[11px] text-emerald-400 bg-emerald-950/40 border border-emerald-500/20 px-2.5 py-1 rounded-lg w-fit">
+            <div className="flex items-center gap-2 text-[11px] text-indigo-400 bg-indigo-950/40 border border-indigo-500/20 px-2.5 py-1 rounded-lg w-fit">
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>100% Client-Side Privacy</span>
+              <span>Browser-Based Execution</span>
             </div>
           </div>
 
@@ -61,7 +61,7 @@ export default function Footer({ onNavigate }) {
               </li>
               <li>
                 <button onClick={() => onNavigate('about')} className="hover:text-indigo-400 transition-colors">
-                  Architecture & Offline Support
+                  About & Architecture
                 </button>
               </li>
               <li>
@@ -78,7 +78,7 @@ export default function Footer({ onNavigate }) {
             <ul className="space-y-2">
               <li>
                 <button onClick={() => onNavigate('privacy')} className="hover:text-indigo-400 transition-colors">
-                  Privacy Policy (No-Log Guarantee)
+                  Privacy Policy
                 </button>
               </li>
               <li>
@@ -87,8 +87,13 @@ export default function Footer({ onNavigate }) {
                 </button>
               </li>
               <li>
+                <button onClick={() => onNavigate('disclaimer')} className="hover:text-indigo-400 transition-colors">
+                  Disclaimer
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onNavigate('contact')} className="hover:text-indigo-400 transition-colors">
-                  Bug Bounty / Security Report
+                  Contact & Feedback
                 </button>
               </li>
             </ul>

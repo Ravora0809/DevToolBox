@@ -1,9 +1,30 @@
 import React, { useState } from 'react';
-import { Copy, Check, Upload, Trash2, ArrowLeftRight, FileText, Image as ImageIcon } from 'lucide-react';
+import { Copy, Check, Upload, Trash2, ArrowLeftRight, Sparkles, AlertCircle, Image as ImageIcon } from 'lucide-react';
+
+const EXAMPLE_TEXT = 'DevToolBox: Fast, developer utilities for code formatting & transformation.';
+
+function utf8ToBase64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let binary = '';
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
+function base64ToUtf8(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+  return new TextDecoder().decode(bytes);
+}
 
 export default function Base64Tool() {
   const [mode, setMode] = useState('encode'); // encode | decode
-  const [input, setInput] = useState('Hello, DevToolBox! Modern developer tools suite.');
+  const [input, setInput] = useState(EXAMPLE_TEXT);
   const [output, setOutput] = useState('');
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(null);
@@ -20,29 +41,30 @@ export default function Base64Tool() {
 
     try {
       if (mode === 'encode') {
-        const encoded = btoa(unescape(encodeURIComponent(input)));
+        const encoded = utf8ToBase64(input);
         const finalVal = urlSafe ? encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '') : encoded;
         setOutput(finalVal);
       } else {
         let clean = input.trim();
+        if (clean.startsWith('data:image/')) {
+          setImagePreview(clean);
+          clean = clean.replace(/^data:image\/[a-zA-Z+.-]+;base64,/, '');
+        }
         if (urlSafe || clean.includes('-') || clean.includes('_')) {
           clean = clean.replace(/-/g, '+').replace(/_/g, '/');
           while (clean.length % 4) clean += '=';
         }
-        // Check if it's an image base64
-        if (clean.startsWith('data:image/')) {
-          setImagePreview(clean);
-        }
-        const decoded = decodeURIComponent(escape(atob(clean.replace(/^data:image\/[a-z]+;base64,/, ''))));
+        const decoded = base64ToUtf8(clean);
         setOutput(decoded);
       }
     } catch (err) {
-      setError(`Failed to ${mode}: Invalid string encoding or characters.`);
+      setError(`Failed to ${mode}: ${err.message || 'Invalid string encoding or characters.'}`);
       setOutput('');
     }
   };
 
   const handleFileUpload = (e) => {
+    setError(null);
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -51,15 +73,20 @@ export default function Base64Tool() {
       const result = reader.result;
       if (typeof result === 'string') {
         if (mode === 'encode') {
-          setInput(`File: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
-          setOutput(result);
+          setInput(`File loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`);
+          const base64Data = result.split(',')[1] || result;
+          setOutput(base64Data);
           if (file.type.startsWith('image/')) {
             setImagePreview(result);
           }
         } else {
           setInput(result);
+          processText();
         }
       }
+    };
+    reader.onerror = () => {
+      setError('Failed to read file from disk.');
     };
     reader.readAsDataURL(file);
   };
@@ -71,14 +98,33 @@ export default function Base64Tool() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleReset = () => {
+    setInput('');
+    setOutput('');
+    setError(null);
+    setImagePreview(null);
+  };
+
+  const handleLoadExample = () => {
+    setError(null);
+    setImagePreview(null);
+    if (mode === 'encode') {
+      setInput(EXAMPLE_TEXT);
+      setOutput('');
+    } else {
+      setInput('RGV2VG9vbEJveDogRmFzdCwgZGV2ZWxvcGVyIHV0aWxpdGllcyBmb3IgY29kZSBmb3JtYXR0aW5nICYgdHJhbnNmb3JtYXRpb24u');
+      setOutput('');
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Action Mode Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-900/90 border border-slate-800 rounded-xl">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="bg-slate-950 p-1 border border-slate-800 rounded-lg flex items-center">
             <button
-              onClick={() => { setMode('encode'); setOutput(''); }}
+              onClick={() => { setMode('encode'); setOutput(''); setError(null); }}
               className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
                 mode === 'encode' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
               }`}
@@ -86,7 +132,7 @@ export default function Base64Tool() {
               Encode (Text → Base64)
             </button>
             <button
-              onClick={() => { setMode('decode'); setOutput(''); }}
+              onClick={() => { setMode('decode'); setOutput(''); setError(null); }}
               className={`px-3 py-1 text-xs font-semibold rounded-md transition-colors ${
                 mode === 'decode' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
               }`}
@@ -104,12 +150,20 @@ export default function Base64Tool() {
             />
             <span>URL-Safe Base64</span>
           </label>
+
+          <button
+            onClick={handleLoadExample}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-medium rounded-lg flex items-center gap-1 border border-slate-700 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            Example
+          </button>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             onClick={processText}
-            className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors shadow-sm"
           >
             <ArrowLeftRight className="w-3.5 h-3.5" />
             {mode === 'encode' ? 'Encode to Base64' : 'Decode Base64'}
@@ -122,9 +176,10 @@ export default function Base64Tool() {
           </label>
 
           <button
-            onClick={() => { setInput(''); setOutput(''); setError(null); setImagePreview(null); }}
-            className="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-800"
-            title="Clear all"
+            onClick={handleReset}
+            className="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg hover:bg-slate-800 transition-colors"
+            title="Reset and clear all"
+            aria-label="Reset tool"
           >
             <Trash2 className="w-4 h-4" />
           </button>
@@ -132,24 +187,28 @@ export default function Base64Tool() {
       </div>
 
       {error && (
-        <div className="p-3 bg-rose-950/40 border border-rose-500/30 rounded-xl text-rose-300 text-xs font-mono">
-          {error}
+        <div className="p-3 bg-rose-950/40 border border-rose-500/30 rounded-xl flex items-center gap-2 text-rose-300 text-xs font-mono">
+          <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+          <span>{error}</span>
         </div>
       )}
 
       {/* Input / Output Grids */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Input */}
-        <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden">
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden focus-within:border-indigo-500/50 transition-colors">
           <div className="px-3.5 py-2 bg-slate-950/80 border-b border-slate-800 text-xs text-slate-400 flex justify-between">
-            <span>{mode === 'encode' ? 'Plaintext / Raw Input' : 'Base64 Input'}</span>
-            <span>{input.length} chars</span>
+            <label htmlFor="base64-input" className="cursor-pointer">
+              {mode === 'encode' ? 'Plaintext / Raw Input' : 'Base64 Input String'}
+            </label>
+            <span className="font-mono text-[11px]">{input.length} chars</span>
           </div>
           <textarea
+            id="base64-input"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder={mode === 'encode' ? 'Type or paste plaintext to encode...' : 'Paste Base64 string to decode...'}
-            className="w-full h-72 p-3.5 bg-transparent font-mono text-xs text-slate-200 placeholder-slate-600 resize-none focus:outline-none leading-relaxed"
+            placeholder={mode === 'encode' ? 'Type or paste UTF-8 text to encode...' : 'Paste Base64 string to decode...'}
+            className="w-full h-72 p-3.5 bg-transparent font-mono text-xs text-slate-100 placeholder-slate-600 resize-none focus:outline-none leading-relaxed"
             spellCheck={false}
           />
         </div>
@@ -158,7 +217,7 @@ export default function Base64Tool() {
         <div className="bg-slate-900/60 border border-slate-800 rounded-xl overflow-hidden flex flex-col">
           <div className="px-3.5 py-2 bg-slate-950/80 border-b border-slate-800 text-xs flex justify-between items-center">
             <span className="text-slate-300 font-medium">
-              {mode === 'encode' ? 'Base64 Output' : 'Decoded Plaintext'}
+              {mode === 'encode' ? 'Base64 Encoded Output' : 'Decoded UTF-8 Plaintext'}
             </span>
             <button
               onClick={handleCopy}
@@ -172,8 +231,8 @@ export default function Base64Tool() {
           <textarea
             value={output}
             readOnly
-            placeholder="Result will appear here..."
-            className="w-full h-72 p-3.5 bg-slate-950/30 font-mono text-xs text-emerald-400 placeholder-slate-600 resize-none focus:outline-none leading-relaxed"
+            placeholder="Result will appear here after clicking Process..."
+            className="w-full h-72 p-3.5 bg-slate-950/30 font-mono text-xs text-emerald-400 placeholder-slate-600 resize-none focus:outline-none leading-relaxed select-all"
             spellCheck={false}
           />
         </div>
@@ -183,10 +242,10 @@ export default function Base64Tool() {
         <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-2">
           <div className="flex items-center gap-2 text-xs font-semibold text-slate-300">
             <ImageIcon className="w-4 h-4 text-indigo-400" />
-            <span>Image Preview from Base64 Data URI</span>
+            <span>Image Preview from Data URI</span>
           </div>
           <div className="max-w-xs max-h-64 overflow-hidden rounded-lg border border-slate-800 bg-slate-950 p-2">
-            <img src={imagePreview} alt="Base64 preview" className="w-full h-auto object-contain rounded" />
+            <img src={imagePreview} alt="Base64 decoded preview" className="w-full h-auto object-contain rounded" />
           </div>
         </div>
       )}

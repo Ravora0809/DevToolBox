@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Copy, Check, RefreshCw, ShieldCheck, ShieldAlert, Key } from 'lucide-react';
+import { Copy, Check, RefreshCw, ShieldCheck, ShieldAlert, Key, Sparkles } from 'lucide-react';
 
 export default function PasswordGenerator() {
   const [length, setLength] = useState(16);
@@ -29,9 +29,15 @@ export default function PasswordGenerator() {
 
     let result = '';
     const array = new Uint32Array(length);
-    window.crypto.getRandomValues(array);
-    for (let i = 0; i < length; i++) {
-      result += chars[array[i] % chars.length];
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+      window.crypto.getRandomValues(array);
+      for (let i = 0; i < length; i++) {
+        result += chars[array[i] % chars.length];
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
     }
     setPassword(result);
   };
@@ -58,6 +64,38 @@ export default function PasswordGenerator() {
 
   const strength = getStrength();
 
+  const applyPreset = (presetType) => {
+    if (presetType === 'pin') {
+      setLength(6);
+      setUppercase(false);
+      setLowercase(false);
+      setNumbers(true);
+      setSymbols(false);
+      setExcludeAmbiguous(false);
+    } else if (presetType === 'alphanumeric') {
+      setLength(16);
+      setUppercase(true);
+      setLowercase(true);
+      setNumbers(true);
+      setSymbols(false);
+      setExcludeAmbiguous(true);
+    } else if (presetType === 'high-security') {
+      setLength(32);
+      setUppercase(true);
+      setLowercase(true);
+      setNumbers(true);
+      setSymbols(true);
+      setExcludeAmbiguous(true);
+    } else if (presetType === 'standard') {
+      setLength(16);
+      setUppercase(true);
+      setLowercase(true);
+      setNumbers(true);
+      setSymbols(true);
+      setExcludeAmbiguous(true);
+    }
+  };
+
   return (
     <div className="space-y-4">
       {/* Password Display Box */}
@@ -68,21 +106,25 @@ export default function PasswordGenerator() {
           </span>
           <div className="flex items-center gap-2 shrink-0">
             <button
+              type="button"
               onClick={() => {
                 if (!password) return;
                 navigator.clipboard.writeText(password);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
+              disabled={!password}
+              className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition-colors"
             >
-              {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+              {copied ? <Check className="w-3.5 h-3.5 text-emerald-300" /> : <Copy className="w-3.5 h-3.5" />}
               <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
             <button
+              type="button"
               onClick={generatePassword}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors"
+              className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition-colors border border-slate-700"
               title="Generate new password"
+              aria-label="Generate new password"
             >
               <RefreshCw className="w-4 h-4" />
             </button>
@@ -105,15 +147,49 @@ export default function PasswordGenerator() {
 
       {/* Configuration Controls */}
       <div className="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-4 text-xs">
+        {/* Quick Presets */}
+        <div className="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-800">
+          <span className="text-slate-400 font-medium">Presets:</span>
+          <button
+            type="button"
+            onClick={() => applyPreset('standard')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition-colors"
+          >
+            Standard (16 chars)
+          </button>
+          <button
+            type="button"
+            onClick={() => applyPreset('high-security')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition-colors"
+          >
+            High Security (32 chars)
+          </button>
+          <button
+            type="button"
+            onClick={() => applyPreset('alphanumeric')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition-colors"
+          >
+            Alphanumeric (No symbols)
+          </button>
+          <button
+            type="button"
+            onClick={() => applyPreset('pin')}
+            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg border border-slate-700 transition-colors"
+          >
+            Numeric PIN (6 digits)
+          </button>
+        </div>
+
         {/* Length Slider */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-slate-300">
-            <span>Password Length:</span>
+            <label htmlFor="password-length-range" className="font-medium">Password Length:</label>
             <span className="font-mono text-sm text-indigo-400 font-bold">{length} characters</span>
           </div>
           <input
+            id="password-length-range"
             type="range"
-            min={6}
+            min={4}
             max={64}
             value={length}
             onChange={(e) => setLength(Number(e.target.value))}
@@ -123,7 +199,7 @@ export default function PasswordGenerator() {
 
         {/* Checkbox Toggles */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800 text-slate-300">
-          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700">
+          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700 transition-colors">
             <input
               type="checkbox"
               checked={uppercase}
@@ -133,7 +209,7 @@ export default function PasswordGenerator() {
             <span>Include Uppercase (A-Z)</span>
           </label>
 
-          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700">
+          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700 transition-colors">
             <input
               type="checkbox"
               checked={lowercase}
@@ -143,7 +219,7 @@ export default function PasswordGenerator() {
             <span>Include Lowercase (a-z)</span>
           </label>
 
-          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700">
+          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700 transition-colors">
             <input
               type="checkbox"
               checked={numbers}
@@ -153,7 +229,7 @@ export default function PasswordGenerator() {
             <span>Include Numbers (0-9)</span>
           </label>
 
-          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700">
+          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700 transition-colors">
             <input
               type="checkbox"
               checked={symbols}
@@ -163,7 +239,7 @@ export default function PasswordGenerator() {
             <span>Include Symbols (!@#$%)</span>
           </label>
 
-          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700 sm:col-span-2">
+          <label className="flex items-center gap-2 p-2 bg-slate-950/60 rounded-lg cursor-pointer border border-slate-800/60 hover:border-slate-700 transition-colors sm:col-span-2">
             <input
               type="checkbox"
               checked={excludeAmbiguous}

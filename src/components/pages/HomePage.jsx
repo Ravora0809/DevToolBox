@@ -46,12 +46,12 @@ export default function HomePage({ onNavigate, onOpenCommandPalette, favorites =
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
           Every Developer Tool <br />
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-sky-300 to-emerald-400">
-            Zero Latency. Zero Tracking.
+            Fast Execution. Developer First.
           </span>
         </h1>
 
         <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-          High-performance formatters, generators, converters, and regex debuggers engineered for speed. All computations run 100% locally in your browser.
+          High-performance formatters, generators, converters, and regex debuggers engineered for speed. Transformations run directly in your browser session using modern Web APIs.
         </p>
 
         {/* Big Search Bar with Cmd+K Trigger */}
@@ -207,9 +207,9 @@ export default function HomePage({ onNavigate, onOpenCommandPalette, favorites =
               <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h4 className="font-bold text-slate-200 text-sm">100% Client-Side Sandbox</h4>
+              <h4 className="font-bold text-slate-200 text-sm">Browser-Local Processing</h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                All JSON formatting, UUID generation, hashing, and regex matching run locally in your browser thread. No data is ever transmitted to a backend.
+                JSON formatting, UUID generation, Base64 conversion, and regex matching execute within your browser's JavaScript runtime.
               </p>
             </div>
 
