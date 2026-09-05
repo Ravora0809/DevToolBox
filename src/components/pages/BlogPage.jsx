@@ -40,7 +40,12 @@ function CopyCodeButton({ text }) {
 }
 
 export default function BlogPage({ onNavigate, initialSlug }) {
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(() => {
+    if (initialSlug) {
+      return BLOG_POSTS.find(p => p.slug === initialSlug || p.id === initialSlug) || null;
+    }
+    return null;
+  });
   const [shareCopied, setShareCopied] = useState(false);
 
   useEffect(() => {
