@@ -3,7 +3,7 @@ import { Copy, Check, RefreshCw, Trash2, Code2, Eye, Sparkles, AlertCircle } fro
 
 const HTML_EXAMPLE = `<div class="card-container">
   <header class="header">
-    <h1>DevToolBox Formatter</h1>
+    <h1>DevToolBoox Formatter</h1>
     <p>Clean HTML code formatting in your browser</p>
   </header>
   <main>

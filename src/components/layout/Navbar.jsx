@@ -36,22 +36,27 @@ export default function Navbar({
         {/* Left: Brand Logo */}
         <div className="flex items-center gap-6">
           <div 
+            id="brand-logo-button"
+            data-testid="brand-logo"
             onClick={() => onNavigate('home')}
             className="flex items-center gap-2.5 cursor-pointer group"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/20">
-              <div className="w-full h-full bg-[#0b0f19] rounded-[11px] flex items-center justify-center group-hover:bg-[#0b0f19]/70 transition-colors">
-                <Code2 className="w-5 h-5 text-indigo-400 group-hover:scale-110 transition-transform" />
-              </div>
+            <div className="w-9 h-9 rounded-xl overflow-hidden border border-indigo-500/40 bg-slate-900 shadow-md shadow-indigo-500/10 group-hover:border-indigo-400 transition-all flex items-center justify-center p-0.5">
+              <img 
+                src="/logo.jpg" 
+                alt="DevToolBoox Logo" 
+                className="w-full h-full object-cover rounded-[9px] group-hover:scale-105 transition-transform"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <div className="flex flex-col">
-              <span className="font-bold text-lg tracking-tight text-white flex items-center gap-1.5">
-                DevToolBox
+              <span className="font-extrabold text-lg tracking-tight text-white flex items-center gap-1.5">
+                <span><span className="text-indigo-400">Dev</span>Tool<span className="text-sky-400">Boox</span></span>
                 <span className="text-[10px] px-1.5 py-0.2 font-semibold uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded">
                   v2.0
                 </span>
               </span>
-              <span className="text-[10px] text-slate-400 font-mono -mt-1 hidden sm:inline">Developer Utilities Suite</span>
+              <span className="text-[10px] text-slate-400 font-medium tracking-wide -mt-1 hidden sm:inline">Tools for Every Developer</span>
             </div>
           </div>
 

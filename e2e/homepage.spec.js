@@ -5,8 +5,8 @@ test.describe('Homepage', () => {
     await page.goto('/');
 
     // Page title and brand
-    await expect(page).toHaveTitle(/DevToolBox/i);
-    await expect(page.locator('header')).toContainText('DevToolBox');
+    await expect(page).toHaveTitle(/DevToolBoox/i);
+    await expect(page.locator('header')).toContainText('DevToolBoox');
 
     // Hero section
     await expect(page.locator('h1')).toContainText('Every Developer Tool');
@@ -25,7 +25,7 @@ test.describe('Homepage', () => {
     await expect(page.locator('h3:has-text("UUID / GUID Generator")')).toBeVisible();
 
     // Footer is present
-    await expect(page.locator('footer')).toContainText('DevToolBox');
+    await expect(page.locator('footer')).toContainText('DevToolBoox');
   });
 
   test('filters tools by category on homepage', async ({ page }) => {

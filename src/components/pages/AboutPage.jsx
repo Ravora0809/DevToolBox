@@ -8,13 +8,13 @@ export default function AboutPage({ onNavigate }) {
       <div className="space-y-4">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          <span>About DevToolBox</span>
+          <span>About DevToolBoox</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           Practical Developer Utilities Built for Daily Engineering Workflows
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-3xl">
-          DevToolBox is an open suite of browser-based utilities engineered to help software developers format payloads, validate schemas, test regular expressions, and convert data without sluggish workflows or intrusive advertisements.
+          DevToolBoox is an open suite of browser-based utilities engineered to help software developers format payloads, validate schemas, test regular expressions, and convert data without sluggish workflows or intrusive advertisements.
         </p>
       </div>
 

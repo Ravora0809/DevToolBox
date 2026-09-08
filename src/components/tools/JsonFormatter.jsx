@@ -3,7 +3,7 @@ import { Copy, Check, Trash2, Download, Upload, RefreshCw, FileCode, CheckCircle
 
 export default function JsonFormatter() {
   const [input, setInput] = useState(`{
-  "name": "DevToolBox",
+  "name": "DevToolBoox",
   "version": "2.0.0",
   "features": [
     "JSON Formatter",
@@ -120,7 +120,7 @@ export default function JsonFormatter() {
           <button
             onClick={() => {
               setInput(`{
-  "name": "DevToolBox",
+  "name": "DevToolBoox",
   "version": "2.0.0",
   "features": [
     "JSON Formatter",
@@ -129,7 +129,7 @@ export default function JsonFormatter() {
     "Password Generator"
   ],
   "author": {
-    "organization": "DevToolBox Team",
+    "organization": "DevToolBoox Team",
     "verified": true,
     "stars": 4200
   }

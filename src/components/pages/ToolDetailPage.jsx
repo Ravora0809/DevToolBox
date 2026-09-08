@@ -40,7 +40,7 @@ export default function ToolDetailPage({ toolId, onNavigate, favorites = [], onT
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: `${tool.name} — DevToolBox`,
+        title: `${tool.name} — DevToolBoox`,
         text: tool.tagline,
         url: window.location.href
       }).catch(() => {});

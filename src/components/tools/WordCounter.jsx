@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Copy, Check, Trash2, Sparkles, FileText, Clock, Type } from 'lucide-react';
 
-const SAMPLE_TEXT = `DevToolBox provides practical developer utilities designed for software engineers, systems architects, and technical writers.
+const SAMPLE_TEXT = `DevToolBoox provides practical developer utilities designed for software engineers, systems architects, and technical writers.
 
 All word calculations, text transformations, character counts, and reading estimations are computed directly inside your browser's local memory.`;
 

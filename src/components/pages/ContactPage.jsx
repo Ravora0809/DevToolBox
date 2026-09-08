@@ -45,13 +45,13 @@ export default function ContactPage({ onNavigate }) {
               <span>Direct Inquiries</span>
             </div>
             <p className="text-slate-400">
-              You can also reach out directly to the DevToolBox team for engineering or tooling suggestions:
+              You can also reach out directly to the DevToolBoox team for engineering or tooling suggestions:
             </p>
             <a
-              href="mailto:contact@devtoolbox.io"
+              href="mailto:contact@devtoolboox.io"
               className="text-indigo-300 hover:underline font-mono text-[11px] block break-all pt-1"
             >
-              contact@devtoolbox.io
+              contact@devtoolboox.io
             </a>
           </div>
 

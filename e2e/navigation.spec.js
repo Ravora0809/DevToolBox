@@ -63,7 +63,7 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL(/#tools/);
 
     // Click Brand logo in header
-    await page.locator('header div.cursor-pointer:has-text("DevToolBox")').click();
+    await page.locator('[data-testid="brand-logo"]').click();
     await expect(page).toHaveURL(/#home/);
     await expect(page.locator('h1')).toContainText('Every Developer Tool');
   });

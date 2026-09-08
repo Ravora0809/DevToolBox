@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Copy, Check, Upload, Trash2, ArrowLeftRight, Sparkles, AlertCircle, Image as ImageIcon } from 'lucide-react';
 
-const EXAMPLE_TEXT = 'DevToolBox: Fast, developer utilities for code formatting & transformation.';
+const EXAMPLE_TEXT = 'DevToolBoox: Fast, developer utilities for code formatting & transformation.';
 
 function utf8ToBase64(str) {
   const bytes = new TextEncoder().encode(str);

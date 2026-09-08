@@ -29,7 +29,7 @@ export default function App() {
   // Favorites state persisted to localStorage
   const [favorites, setFavorites] = useState(() => {
     try {
-      const saved = localStorage.getItem('devtoolbox_favorites');
+      const saved = localStorage.getItem('devtoolboox_favorites') || localStorage.getItem('devtoolbox_favorites');
       return saved ? JSON.parse(saved) : ['json-formatter', 'regex-tester', 'uuid-generator'];
     } catch {
       return ['json-formatter', 'regex-tester', 'uuid-generator'];
@@ -50,48 +50,48 @@ export default function App() {
 
   // Dynamic SEO meta tags and titles
   useEffect(() => {
-    let title = 'DevToolBox - Essential Developer Utilities';
+    let title = 'DevToolBoox - Essential Developer Utilities';
     let description = 'Fast browser-based developer utilities: JSON formatter, regex tester, Base64 encoder, UUID generator, and HTML formatter.';
-    let canonical = `https://devtoolbox.io/#${currentRoute}`;
+    let canonical = `https://devtoolboox.io/#${currentRoute}`;
 
     if (currentRoute === 'home') {
-      title = 'DevToolBox - Fast & Accessible Developer Utilities';
+      title = 'DevToolBoox - Fast & Accessible Developer Utilities';
       description = 'Free, fast, and accessible developer tools for daily engineering workflows. Formatter, encoder, regex tester, and generators.';
     } else if (currentRoute === 'tools') {
-      title = 'All Developer Tools Directory - DevToolBox';
+      title = 'All Developer Tools Directory - DevToolBoox';
       description = 'Browse all 11+ browser-based utilities including JSON formatters, Base64 encoders, UUID generators, and Regex testers.';
     } else if (currentRoute.startsWith('tool-')) {
       const toolId = currentRoute.replace('tool-', '');
       const tool = TOOLS.find(t => t.id === toolId);
       if (tool) {
-        title = `${tool.metaTitle || tool.name + ' - DevToolBox'}`;
+        title = `${tool.metaTitle || tool.name + ' - DevToolBoox'}`;
         description = tool.metaDescription || tool.description;
       }
     } else if (currentRoute.startsWith('blog-')) {
       const slug = currentRoute.replace('blog-', '');
       const post = BLOG_POSTS.find(p => p.slug === slug || p.id === slug);
       if (post) {
-        title = `${post.title} - DevToolBox Guides`;
+        title = `${post.title} - DevToolBoox Guides`;
         description = post.summary;
       }
     } else if (currentRoute === 'blog') {
-      title = 'Developer Articles & Technical Guides - DevToolBox';
+      title = 'Developer Articles & Technical Guides - DevToolBoox';
       description = 'In-depth engineering articles on JSON standards, Regular Expressions, Base64 serialization, Unix timestamps, and TypeScript compilers.';
     } else if (currentRoute === 'about') {
-      title = 'About & Engineering Standards - DevToolBox';
-      description = 'Learn about DevToolBox architecture, browser-local execution, and our commitment to fast developer tools.';
+      title = 'About & Engineering Standards - DevToolBoox';
+      description = 'Learn about DevToolBoox architecture, browser-local execution, and our commitment to fast developer tools.';
     } else if (currentRoute === 'contact') {
-      title = 'Contact & Tool Requests - DevToolBox';
-      description = 'Request a new developer utility or report formatting inaccuracies to the DevToolBox team.';
+      title = 'Contact & Tool Requests - DevToolBoox';
+      description = 'Request a new developer utility or report formatting inaccuracies to the DevToolBoox team.';
     } else if (currentRoute === 'privacy') {
-      title = 'Privacy Policy - DevToolBox';
-      description = 'DevToolBox privacy policy and data processing architecture.';
+      title = 'Privacy Policy - DevToolBoox';
+      description = 'DevToolBoox privacy policy and data processing architecture.';
     } else if (currentRoute === 'terms') {
-      title = 'Terms of Service - DevToolBox';
-      description = 'Terms and acceptable usage conditions for DevToolBox utilities.';
+      title = 'Terms of Service - DevToolBoox';
+      description = 'Terms and acceptable usage conditions for DevToolBoox utilities.';
     } else if (currentRoute === 'disclaimer') {
-      title = 'Disclaimer - DevToolBox';
-      description = 'Disclaimer of warranties and accuracy for DevToolBox developer utilities.';
+      title = 'Disclaimer - DevToolBoox';
+      description = 'Disclaimer of warranties and accuracy for DevToolBoox developer utilities.';
     }
 
     document.title = title;
@@ -125,6 +125,7 @@ export default function App() {
     setFavorites(prev => {
       const next = prev.includes(toolId) ? prev.filter(id => id !== toolId) : [...prev, toolId];
       try {
+        localStorage.setItem('devtoolboox_favorites', JSON.stringify(next));
         localStorage.setItem('devtoolbox_favorites', JSON.stringify(next));
       } catch {}
       return next;

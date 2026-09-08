@@ -12,7 +12,7 @@ export default function AdBanner({ slot = "header" }) {
         <div className="flex items-center justify-between text-indigo-400 font-semibold mb-1">
           <span className="flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            DevToolBox Utilities
+            DevToolBoox Utilities
           </span>
           <span className="text-[10px] uppercase tracking-wider text-slate-400 border border-slate-700 px-1 rounded">Guide</span>
         </div>

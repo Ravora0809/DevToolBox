@@ -77,7 +77,7 @@ describe('JsonFormatter Tool', () => {
     fireEvent.click(exampleBtn);
 
     const rawInput = screen.getByPlaceholderText(/Paste your unformatted JSON here/i);
-    expect(rawInput.value).toContain('DevToolBox');
+    expect(rawInput.value).toContain('DevToolBoox');
   });
 
   it('copies formatted JSON to clipboard', async () => {

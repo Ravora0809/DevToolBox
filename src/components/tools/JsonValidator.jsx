@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CheckCircle2, AlertTriangle, XCircle, Copy, Check, Wrench, Trash2, Sparkles, AlertCircle } from 'lucide-react';
 
 const VALID_EXAMPLE = `{
-  "projectName": "DevToolBox",
+  "projectName": "DevToolBoox",
   "version": "2.0.0",
   "clientSide": true,
   "config": {

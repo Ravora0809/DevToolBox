@@ -37,7 +37,26 @@ export default function HomePage({ onNavigate, onOpenCommandPalette, favorites =
   return (
     <div className="space-y-16 py-6">
       {/* Hero Section */}
-      <section className="relative text-center max-w-4xl mx-auto px-4 pt-6 pb-2 space-y-6">
+      <section className="relative text-center max-w-4xl mx-auto px-4 pt-4 pb-2 space-y-5">
+        {/* Brand Logo & Tagline from Logo Asset */}
+        <div className="flex flex-col items-center justify-center gap-2.5">
+          <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden shadow-2xl shadow-indigo-500/25 border-2 border-indigo-500/40 p-1 bg-slate-900">
+            <img 
+              src="/logo.jpg" 
+              alt="DevToolBoox Logo" 
+              className="w-full h-full object-cover rounded-xl"
+              referrerPolicy="no-referrer"
+            />
+          </div>
+          <div className="flex items-center gap-2 text-[11px] font-semibold tracking-widest uppercase text-slate-400">
+            <span>Build</span>
+            <span className="text-indigo-400">•</span>
+            <span>Explore</span>
+            <span className="text-sky-400">•</span>
+            <span>Create</span>
+          </div>
+        </div>
+
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-semibold shadow-inner">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
           <span>Fast, Offline-Capable Developer Suite</span>

@@ -12,11 +12,18 @@ export default function Footer({ onNavigate }) {
           
           {/* Col 1: About */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-lg bg-indigo-600 flex items-center justify-center">
-                <Code2 className="w-3.5 h-3.5 text-white" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg overflow-hidden border border-indigo-500/40 bg-slate-900 flex items-center justify-center p-0.5">
+                <img 
+                  src="/logo.jpg" 
+                  alt="DevToolBoox Logo" 
+                  className="w-full h-full object-cover rounded"
+                  referrerPolicy="no-referrer"
+                />
               </div>
-              <span className="font-bold text-slate-100 text-sm">DevToolBox</span>
+              <span className="font-extrabold text-slate-100 text-sm">
+                <span className="text-indigo-400">Dev</span>Tool<span className="text-sky-400">Boox</span>
+              </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed">
               Fast, focused developer utilities for formatting, regex evaluation, encoding, and data transformation. Processed locally in your browser.
@@ -103,7 +110,7 @@ export default function Footer({ onNavigate }) {
 
         {/* Bottom bar */}
         <div className="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
-          <p>© {new Date().getFullYear()} DevToolBox. All rights reserved. Built with React & Tailwind CSS.</p>
+          <p>© {new Date().getFullYear()} DevToolBoox. All rights reserved. Built with React & Tailwind CSS.</p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               Engineered for developer productivity

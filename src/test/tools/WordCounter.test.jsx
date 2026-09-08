@@ -64,7 +64,7 @@ describe('WordCounter Tool', () => {
     fireEvent.click(sampleBtn);
 
     const textarea = screen.getByPlaceholderText(/Paste or type content here/i);
-    expect(textarea.value).toContain('DevToolBox');
+    expect(textarea.value).toContain('DevToolBoox');
   });
 
   it('copies text to clipboard', () => {

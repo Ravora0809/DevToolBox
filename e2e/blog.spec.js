@@ -23,7 +23,7 @@ test.describe('Blog Articles', () => {
     await expect(page.locator('text=Understanding JSON Formatting and Indentation Standards')).toBeVisible();
 
     // Verify related tool links are visible
-    await expect(page.locator('h3:has-text("Related DevToolBox Utilities")')).toBeVisible();
+    await expect(page.locator('h3:has-text("Related DevToolBoox Utilities")')).toBeVisible();
 
     // Click back to all articles
     await page.locator('button:has-text("Back to all articles")').click();

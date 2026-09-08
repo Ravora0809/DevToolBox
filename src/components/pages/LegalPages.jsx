@@ -28,14 +28,14 @@ export function PrivacyPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">1. Overview and Core Architecture</h2>
           <p>
-            DevToolBox provides browser-based utilities for software developers, including formatters, encoders, generators, and validators. Our utilities are implemented to execute client-side using standard Web APIs, meaning text transformations and conversions are processed directly inside your browser session.
+            DevToolBoox provides browser-based utilities for software developers, including formatters, encoders, generators, and validators. Our utilities are implemented to execute client-side using standard Web APIs, meaning text transformations and conversions are processed directly inside your browser session.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">2. Data Processing and Inputs</h2>
           <p>
-            When you paste or type code, JSON, regular expressions, or text into DevToolBox tools, that content is processed in your local browser memory to compute the requested output. We do not operate backend database clusters to harvest, profile, or retain your transformed payloads.
+            When you paste or type code, JSON, regular expressions, or text into DevToolBoox tools, that content is processed in your local browser memory to compute the requested output. We do not operate backend database clusters to harvest, profile, or retain your transformed payloads.
           </p>
           <p>
             However, we urge caution: as with any online application, users should avoid pasting production secrets, unencrypted private keys, or highly classified corporate credentials into web applications.
@@ -45,7 +45,7 @@ export function PrivacyPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">3. Local Storage</h2>
           <p>
-            DevToolBox uses your browser's standard <code className="text-indigo-300 bg-slate-900 px-1.5 py-0.5 rounded text-xs">localStorage</code> to save lightweight client-side preferences, specifically your starred favorite tools. This data never leaves your device and can be cleared at any time through your browser settings.
+            DevToolBoox uses your browser's standard <code className="text-indigo-300 bg-slate-900 px-1.5 py-0.5 rounded text-xs">localStorage</code> to save lightweight client-side preferences, specifically your starred favorite tools. This data never leaves your device and can be cleared at any time through your browser settings.
           </p>
         </section>
 
@@ -59,7 +59,7 @@ export function PrivacyPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">5. External Links and Third-Party Services</h2>
           <p>
-            DevToolBox may reference external developer resources, documentation sites, or open-source repositories. We are not responsible for the privacy practices, content, or technical operations of third-party websites.
+            DevToolBoox may reference external developer resources, documentation sites, or open-source repositories. We are not responsible for the privacy practices, content, or technical operations of third-party websites.
           </p>
         </section>
 
@@ -115,21 +115,21 @@ export function TermsPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">1. Acceptance of Terms</h2>
           <p>
-            By accessing or using DevToolBox, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the service.
+            By accessing or using DevToolBoox, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the service.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">2. Permitted Use</h2>
           <p>
-            DevToolBox is provided for developers, students, and technology professionals. You may use our utilities for personal, educational, and commercial development workflows, subject to these terms.
+            DevToolBoox is provided for developers, students, and technology professionals. You may use our utilities for personal, educational, and commercial development workflows, subject to these terms.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">3. Prohibited Activities</h2>
           <p>
-            You agree not to misuse DevToolBox. Prohibited conduct includes:
+            You agree not to misuse DevToolBoox. Prohibited conduct includes:
           </p>
           <ul className="list-disc list-inside space-y-1 pl-2 text-slate-400">
             <li>Attempting to disrupt, overload, or degrade the availability of our infrastructure.</li>
@@ -141,21 +141,21 @@ export function TermsPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">4. Intellectual Property</h2>
           <p>
-            All custom site design, branding, editorial guides, and interface code of DevToolBox are the intellectual property of the DevToolBox team. The data, code, or strings you process with the tools remain your exclusive property.
+            All custom site design, branding, editorial guides, and interface code of DevToolBoox are the intellectual property of the DevToolBoox team. The data, code, or strings you process with the tools remain your exclusive property.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">5. Disclaimer of Warranties</h2>
           <p>
-            DevToolBox is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, either express or implied. We do not warrant that results will be error-free or that the website will always remain uninterrupted.
+            DevToolBoox is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, either express or implied. We do not warrant that results will be error-free or that the website will always remain uninterrupted.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">6. Limitation of Liability</h2>
           <p>
-            To the maximum extent permitted by applicable law, DevToolBox and its contributors will not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services.
+            To the maximum extent permitted by applicable law, DevToolBoox and its contributors will not be liable for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our services.
           </p>
         </section>
       </div>
@@ -190,7 +190,7 @@ export function DisclaimerPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">1. Informational and Utility Purpose Only</h2>
           <p>
-            The tools, formatters, validators, calculations, and articles provided on DevToolBox are for general informational, educational, and workflow assistance purposes only. They do not constitute professional security auditing, cryptographic certification, or legal advice.
+            The tools, formatters, validators, calculations, and articles provided on DevToolBoox are for general informational, educational, and workflow assistance purposes only. They do not constitute professional security auditing, cryptographic certification, or legal advice.
           </p>
         </section>
 
@@ -211,7 +211,7 @@ export function DisclaimerPage({ onNavigate }) {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">4. Third-Party References and Trade Names</h2>
           <p>
-            All product names, trademarks, and registered trademarks mentioned on DevToolBox (including React, Vite, JSON, TypeScript, and others) are property of their respective owners. Their mention does not imply endorsement, affiliation, or sponsorship.
+            All product names, trademarks, and registered trademarks mentioned on DevToolBoox (including React, Vite, JSON, TypeScript, and others) are property of their respective owners. Their mention does not imply endorsement, affiliation, or sponsorship.
           </p>
         </section>
       </div>

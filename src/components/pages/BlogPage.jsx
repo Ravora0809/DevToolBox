@@ -137,7 +137,7 @@ export default function BlogPage({ onNavigate, initialSlug }) {
             </div>
             <div>
               <div className="text-xs font-semibold text-slate-200">
-                {selectedPost.author || 'DevToolBox Team'}
+                {selectedPost.author || 'DevToolBoox Team'}
               </div>
               <div className="text-[11px] text-slate-400">
                 {selectedPost.authorRole || 'Engineering Architecture & Tooling'}
@@ -296,7 +296,7 @@ export default function BlogPage({ onNavigate, initialSlug }) {
           <div className="border-t border-slate-800 pt-8 space-y-4">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               <Wrench className="w-4 h-4 text-indigo-400" />
-              <span>Related DevToolBox Utilities</span>
+              <span>Related DevToolBoox Utilities</span>
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {relatedTools.map(t => (

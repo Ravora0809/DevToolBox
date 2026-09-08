@@ -3,7 +3,7 @@ export const BLOG_POSTS = [
     id: 'modern-json-formatting-validation-guide',
     slug: 'modern-json-formatting-validation-guide',
     title: 'Modern JSON Formatting, Schema Validation, and Payload Optimization in 2026',
-    author: 'DevToolBox Team',
+    author: 'DevToolBoox Team',
     authorRole: 'Engineering Architecture & Protocols',
     date: 'Aug 28, 2026',
     readTime: '6 min read',
@@ -78,15 +78,15 @@ In typical microservice payloads with realistic nesting, minification reduces pa
 ---
 
 ### Interactive Tools for This Guide
-- [Format and Minify JSON with DevToolBox JSON Formatter](/#tool-json-formatter)
-- [Validate Syntax and Debug Line Errors with DevToolBox JSON Validator](/#tool-json-validator)
+- [Format and Minify JSON with DevToolBoox JSON Formatter](/#tool-json-formatter)
+- [Validate Syntax and Debug Line Errors with DevToolBoox JSON Validator](/#tool-json-validator)
 `
   },
   {
     id: 'regex-practical-guide-performance',
     slug: 'regex-practical-guide-performance',
     title: 'The Definitive Regular Expressions Handbook: Performance, Safe Patterns, and Edge Cases',
-    author: 'DevToolBox Team',
+    author: 'DevToolBoox Team',
     authorRole: 'Core Systems & Algorithms',
     date: 'Aug 21, 2026',
     readTime: '8 min read',
@@ -159,14 +159,14 @@ If you are searching for fixed substrings without pattern variation, methods lik
 ---
 
 ### Interactive Tools for This Guide
-- [Test and Debug Regular Expressions with DevToolBox Regex Tester](/#tool-regex-tester)
+- [Test and Debug Regular Expressions with DevToolBoox Regex Tester](/#tool-regex-tester)
 `
   },
   {
     id: 'base64-encoding-binary-data-guide',
     slug: 'base64-encoding-binary-data-guide',
     title: 'Understanding Base64 Encoding: Binary Serialization, Data URIs, and Security Realities',
-    author: 'DevToolBox Team',
+    author: 'DevToolBoox Team',
     authorRole: 'Web Protocols & Security',
     date: 'Aug 15, 2026',
     readTime: '5 min read',
@@ -236,15 +236,15 @@ The legacy \`btoa()\` and \`atob()\` window functions only support Latin1 (ASCII
 ---
 
 ### Interactive Tools for This Guide
-- [Encode and Decode Base64 with DevToolBox Base64 Tool](/#tool-base64-tool)
-- [Encode and Decode URLs with DevToolBox URL Encoder](/#tool-url-encoder)
+- [Encode and Decode Base64 with DevToolBoox Base64 Tool](/#tool-base64-tool)
+- [Encode and Decode URLs with DevToolBoox URL Encoder](/#tool-url-encoder)
 `
   },
   {
     id: 'unix-timestamps-timezones-distributed-systems',
     slug: 'unix-timestamps-timezones-distributed-systems',
     title: 'Demystifying Unix Timestamps and Timezones in Distributed Systems',
-    author: 'DevToolBox Team',
+    author: 'DevToolBoox Team',
     authorRole: 'Infrastructure & Backend Systems',
     date: 'Aug 07, 2026',
     readTime: '7 min read',
@@ -303,14 +303,14 @@ Unix time intentionally ignores leap seconds by convention. Each day is assumed 
 ---
 
 ### Interactive Tools for This Guide
-- [Convert Unix Timestamps to Human Dates with DevToolBox Timestamp Converter](/#tool-timestamp-converter)
+- [Convert Unix Timestamps to Human Dates with DevToolBoox Timestamp Converter](/#tool-timestamp-converter)
 `
   },
   {
     id: 'clean-code-stripping-typescript-types',
     slug: 'clean-code-stripping-typescript-types',
     title: 'Migrating TypeScript TSX to Clean JSX: Abstract Syntax Trees and Runtime Mechanics',
-    author: 'DevToolBox Team',
+    author: 'DevToolBoox Team',
     authorRole: 'Frontend Tooling & Compilers',
     date: 'Jul 30, 2026',
     readTime: '6 min read',
@@ -378,7 +378,7 @@ Engineers frequently convert TSX to JSX when sharing reproducible code snippets 
 ---
 
 ### Interactive Tools for This Guide
-- [Convert TSX to Clean JSX Instantly with DevToolBox TSX to JSX Converter](/#tool-tsx-to-jsx)
+- [Convert TSX to Clean JSX Instantly with DevToolBoox TSX to JSX Converter](/#tool-tsx-to-jsx)
 `
   }
 ];
