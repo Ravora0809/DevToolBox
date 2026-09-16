@@ -9,7 +9,7 @@ test.describe('Tools Directory', () => {
   test('displays all developer utilities and category filters', async ({ page }) => {
     // Check key utilities are rendered
     await expect(page.locator('h3:has-text("JSON Formatter")')).toBeVisible();
-    await expect(page.locator('h3:has-text("Base64 Encoder")')).toBeVisible();
+    await expect(page.locator('h3:has-text("Base64 Encoder")').first()).toBeVisible();
     await expect(page.locator('h3:has-text("Word & Character Counter")')).toBeVisible();
     await expect(page.locator('h3:has-text("Unix Timestamp Converter")')).toBeVisible();
 
@@ -17,7 +17,7 @@ test.describe('Tools Directory', () => {
     const encodersBtn = page.locator('button:has-text("Encoders & Decoders")');
     await encodersBtn.click();
 
-    await expect(page.locator('h3:has-text("Base64 Encoder")')).toBeVisible();
+    await expect(page.locator('h3:has-text("Base64 Encoder")').first()).toBeVisible();
     await expect(page.locator('h3:has-text("URL Encoder")')).toBeVisible();
     await expect(page.locator('h3:has-text("JSON Formatter")')).not.toBeVisible();
   });

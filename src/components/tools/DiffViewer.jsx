@@ -180,7 +180,7 @@ function calculateTotal(items, taxRate = 0.08) {
       <div className="bg-slate-900/50 rounded-xl border border-slate-800 p-4">
         <div className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center gap-2">
           <GitCompare className="w-4 h-4 text-indigo-400" />
-          <span>Interactive Visual Diff Comparison ({diffMode})</span>
+          <span>Unified Diff Result & Visual Comparison ({diffMode})</span>
         </div>
 
         <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs overflow-x-auto leading-relaxed max-h-96">

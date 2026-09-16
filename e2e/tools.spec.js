@@ -391,9 +391,9 @@ test.describe('Developer Tools E2E Suite', () => {
     const input = page.locator('textarea[placeholder*="Type or paste any string"]');
     await input.fill('hello world test');
 
-    await expect(page.locator('text=helloWorldTest')).toBeVisible();
-    await expect(page.locator('text=hello_world_test')).toBeVisible();
-    await expect(page.locator('text=hello-world-test')).toBeVisible();
+    await expect(page.getByText('helloWorldTest', { exact: true })).toBeVisible();
+    await expect(page.getByText('hello_world_test', { exact: true })).toBeVisible();
+    await expect(page.getByText('hello-world-test', { exact: true })).toBeVisible();
   });
 
   // 20. URL Parser
@@ -406,6 +406,6 @@ test.describe('Developer Tools E2E Suite', () => {
 
     await expect(page.locator('text=https:').first()).toBeVisible();
     await expect(page.locator('text=example.com').first()).toBeVisible();
-    await expect(page.locator('text=/api/search').first()).toBeVisible();
+    await expect(page.getByText('/api/search', { exact: true }).first()).toBeVisible();
   });
 });

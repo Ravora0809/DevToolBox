@@ -284,7 +284,7 @@ export default function LineSortDedupe() {
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             rows={12}
-            placeholder="Paste multiple lines of text or items here..."
+            placeholder="Paste text lines here..."
             className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs text-slate-100 font-mono focus:outline-none focus:border-indigo-500 resize-y"
           />
         </div>

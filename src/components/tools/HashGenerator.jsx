@@ -327,7 +327,7 @@ export default function HashGenerator() {
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           rows={4}
-          placeholder="Type or paste any text to hash..."
+          placeholder="Type or paste text string to hash..."
           className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-sm text-slate-100 font-mono focus:outline-none focus:border-indigo-500 resize-y"
         />
       </div>

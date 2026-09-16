@@ -188,7 +188,7 @@ export default function ColorConverter() {
                 type="text"
                 value={hex}
                 onChange={(e) => setHex(e.target.value)}
-                placeholder="#6366F1"
+                placeholder="#6366f1"
                 className="w-full sm:w-64 bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xl font-mono font-bold text-white focus:outline-none focus:border-indigo-500"
               />
               <input
