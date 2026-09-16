@@ -37,7 +37,26 @@ import {
   ShieldAlert,
   Moon,
   Sun,
-  X
+  X,
+  QrCode,
+  Palette,
+  GitCompare,
+  Hash,
+  Shield,
+  ListFilter,
+  Edit3,
+  Clipboard,
+  Image,
+  Type,
+  FileCode,
+  Cpu,
+  Globe,
+  Percent,
+  AlignLeft,
+  Key,
+  Eye,
+  Scale,
+  ListOrdered
 } from 'lucide-react';
 
 const iconMap = {
@@ -78,7 +97,26 @@ const iconMap = {
   ShieldAlert,
   Moon,
   Sun,
-  X
+  X,
+  QrCode,
+  Palette,
+  GitCompare,
+  Hash,
+  Shield,
+  ListFilter,
+  Edit3,
+  Clipboard,
+  Image,
+  Type,
+  FileCode,
+  Cpu,
+  Globe,
+  Percent,
+  AlignLeft,
+  Key,
+  Eye,
+  Scale,
+  ListOrdered
 };
 
 export default function IconHelper({ name, className = "w-5 h-5", ...props }) {

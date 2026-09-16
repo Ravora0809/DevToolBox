@@ -15,17 +15,50 @@ import TimestampConverter from '../tools/TimestampConverter';
 import WordCounter from '../tools/WordCounter';
 import HtmlFormatter from '../tools/HtmlFormatter';
 import TsxToJsxConverter from '../tools/TsxToJsxConverter';
+import AsciiConverter from '../tools/AsciiConverter';
+import Base64Encoder from '../tools/Base64Encoder';
+import Base64ImageEncoder from '../tools/Base64ImageEncoder';
+import CssUnitConverter from '../tools/CssUnitConverter';
+import ClipboardFormatter from '../tools/ClipboardFormatter';
+import ColorConverter from '../tools/ColorConverter';
+import DiffViewer from '../tools/DiffViewer';
+import HashGenerator from '../tools/HashGenerator';
+import JwtViewer from '../tools/JwtViewer';
+import LineSortDedupe from '../tools/LineSortDedupe';
+import MarkdownEditor from '../tools/MarkdownEditor';
+import QrCodeGenerator from '../tools/QrCodeGenerator';
+import StringConverter from '../tools/StringConverter';
+import UrlDecoder from '../tools/UrlDecoder';
+import UrlParser from '../tools/UrlParser';
 
 const COMPONENT_MAP = {
   'json-formatter': JsonFormatter,
   'json-validator': JsonValidator,
   'regex-tester': RegexTester,
+  'regex-checker': RegexTester,
   'base64-tool': Base64Tool,
-  'url-encoder': UrlEncoderDecoder,
+  'base64-encoder': Base64Encoder,
+  'base64-image-encoder': Base64ImageEncoder,
+  'ascii-converter': AsciiConverter,
+  'css-unit-converter': CssUnitConverter,
+  'character-word-counter': WordCounter,
+  'word-counter': WordCounter,
+  'clipboard-formatter': ClipboardFormatter,
+  'color-converter': ColorConverter,
+  'diff-viewer': DiffViewer,
+  'hash-generator': HashGenerator,
+  'jwt-viewer': JwtViewer,
+  'line-sort-dedupe': LineSortDedupe,
+  'markdown-editor': MarkdownEditor,
+  'qrcode-generator': QrCodeGenerator,
+  'string-converter': StringConverter,
   'uuid-generator': UuidGenerator,
   'password-generator': PasswordGenerator,
+  'unix-time-converter': TimestampConverter,
   'timestamp-converter': TimestampConverter,
-  'word-counter': WordCounter,
+  'url-encoder': UrlEncoderDecoder,
+  'url-decoder': UrlDecoder,
+  'url-parser': UrlParser,
   'html-formatter': HtmlFormatter,
   'tsx-to-jsx': TsxToJsxConverter
 };

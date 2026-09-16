@@ -162,6 +162,20 @@ export default function Navbar({
             </div>
           )}
 
+          {/* Star Us On GitHub */}
+          <a
+            href="https://github.com/bhupanimounika/devtoolboox"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-indigo-500/50 text-slate-200 hover:text-white rounded-xl text-xs font-semibold transition-all shadow-sm group"
+            title="Star Us On GitHub"
+            data-testid="star-github-btn"
+          >
+            <Github className="w-3.5 h-3.5 text-slate-300 group-hover:text-white" />
+            <span>Star Us On GitHub</span>
+            <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+          </a>
+
           {/* Mobile menu toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -206,6 +220,19 @@ export default function Navbar({
           >
             Request a Tool / Feedback
           </button>
+
+          <a
+            href="https://github.com/bhupanimounika/devtoolboox"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-semibold text-white bg-slate-800/80 hover:bg-slate-700 border border-slate-700 mt-2"
+          >
+            <span className="flex items-center gap-2">
+              <Github className="w-4 h-4 text-slate-300" />
+              <span>Star Us On GitHub</span>
+            </span>
+            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+          </a>
         </div>
       )}
     </header>

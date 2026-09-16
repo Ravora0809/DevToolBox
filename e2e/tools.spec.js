@@ -292,4 +292,120 @@ test.describe('Developer Tools E2E Suite', () => {
     await page.locator('button:has-text("Copy")').first().click();
     await expect(page.locator('text=Copied')).toBeVisible();
   });
+
+  // 11. Navbar Star Us On GitHub
+  test('Navbar includes Star Us On GitHub link with correct repository URL', async ({ page }) => {
+    await page.goto('/');
+    const starBtn = page.locator('[data-testid="star-github-btn"]');
+    await expect(starBtn).toBeVisible();
+    await expect(starBtn).toHaveAttribute('href', 'https://github.com/bhupanimounika/devtoolboox');
+  });
+
+  // 12. ASCII Converter
+  test('ASCII Converter translates text to decimal, hex, binary, and octal', async ({ page }) => {
+    await page.goto('/#tool-ascii-converter');
+    await expect(page.locator('h1')).toContainText('ASCII Converter');
+
+    const input = page.locator('textarea[placeholder*="Type or paste text to convert to ASCII"]');
+    await input.fill('ABC');
+
+    // Output textarea should have decimal '65 66 67'
+    const output = page.locator('textarea[placeholder*="Converted output will appear"]');
+    await expect(output).toHaveValue('65 66 67');
+  });
+
+  // 13. Base64 Encoder
+  test('Base64 Encoder converts strings to Base64 with URL-safe option', async ({ page }) => {
+    await page.goto('/#tool-base64-encoder');
+    await expect(page.locator('h1')).toContainText('Base64 Encoder');
+
+    const input = page.locator('textarea[placeholder*="Type or paste plain text here"]');
+    await input.fill('Hello World');
+
+    const output = page.locator('textarea[placeholder*="Base64 output will appear here"]');
+    await expect(output).toHaveValue('SGVsbG8gV29ybGQ=');
+  });
+
+  // 14. CSS Unit Converter
+  test('CSS Unit Converter converts px to rem, em, %, and viewport units', async ({ page }) => {
+    await page.goto('/#tool-css-unit-converter');
+    await expect(page.locator('h1')).toContainText('CSS Unit Converter');
+
+    const pxInput = page.locator('input[type="number"]').first();
+    await pxInput.fill('32');
+
+    // With 16px root, 32px is 2rem
+    await expect(page.locator('text=2rem')).toBeVisible();
+  });
+
+  // 15. Color Converter
+  test('Color Converter translates HEX to RGB, HSL, and shows WCAG contrast', async ({ page }) => {
+    await page.goto('/#tool-color-converter');
+    await expect(page.locator('h1')).toContainText('Color Converter');
+
+    const hexInput = page.locator('input[placeholder*="#6366f1"]');
+    await hexInput.fill('#000000');
+
+    await expect(page.locator('text=rgb(0, 0, 0)')).toBeVisible();
+    await expect(page.locator('text=hsl(0, 0%, 0%)')).toBeVisible();
+  });
+
+  // 16. Diff Viewer
+  test('Diff Viewer highlights differences and line counts between two inputs', async ({ page }) => {
+    await page.goto('/#tool-diff-viewer');
+    await expect(page.locator('h1')).toContainText('Diff Viewer');
+
+    await expect(page.locator('text=Unified Diff Result')).toBeVisible();
+  });
+
+  // 17. Hash Generator
+  test('Hash Generator computes MD5, SHA-1, SHA-256, and SHA-512', async ({ page }) => {
+    await page.goto('/#tool-hash-generator');
+    await expect(page.locator('h1')).toContainText('Hash Generator');
+
+    const input = page.locator('textarea[placeholder*="Type or paste text string to hash"]');
+    await input.fill('test');
+
+    // SHA-256 for 'test' is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+    await expect(page.locator('text=9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08')).toBeVisible();
+  });
+
+  // 18. Line Sort and Dedupe
+  test('Line Sort And Dedupe sorts lines and removes duplicates', async ({ page }) => {
+    await page.goto('/#tool-line-sort-dedupe');
+    await expect(page.locator('h1')).toContainText('Line Sort And Dedupe');
+
+    const input = page.locator('textarea[placeholder*="Paste text lines here"]');
+    await input.fill('banana\napple\nbanana\norange');
+
+    // Default is remove duplicates + alphabetical sort
+    const output = page.locator('textarea[placeholder*="Processed lines will appear here"]');
+    await expect(output).toHaveValue('apple\nbanana\norange');
+  });
+
+  // 19. String Converter
+  test('String Converter generates camelCase, snake_case, and kebab-case', async ({ page }) => {
+    await page.goto('/#tool-string-converter');
+    await expect(page.locator('h1')).toContainText('String Converter');
+
+    const input = page.locator('textarea[placeholder*="Type or paste any string"]');
+    await input.fill('hello world test');
+
+    await expect(page.locator('text=helloWorldTest')).toBeVisible();
+    await expect(page.locator('text=hello_world_test')).toBeVisible();
+    await expect(page.locator('text=hello-world-test')).toBeVisible();
+  });
+
+  // 20. URL Parser
+  test('Url Parser breaks down protocol, host, and query parameters', async ({ page }) => {
+    await page.goto('/#tool-url-parser');
+    await expect(page.locator('h1')).toContainText('Url Parser');
+
+    const input = page.locator('input[placeholder*="https://example.com"]');
+    await input.fill('https://example.com/api/search?q=developer&lang=en#section1');
+
+    await expect(page.locator('text=https:').first()).toBeVisible();
+    await expect(page.locator('text=example.com').first()).toBeVisible();
+    await expect(page.locator('text=/api/search').first()).toBeVisible();
+  });
 });
